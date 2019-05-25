@@ -7,6 +7,7 @@
 2. What will it do? (What "human activity" will it support?)
    - It will help with indecision -- users will input their current ‘feelings’, availability, and the maximum distance they are willing to travel. Our app will then return a recommended ‘plan’ to that user
    - The ‘feelings’ that a user selects will be associated with some tag which we will use to lookup associated places.
+   - This app will support users in making decisions about what to do.
 
 3. What type of data will it store? What will users be able to do with this data?
    - On each lookup (using Google Places API) we will store the results of that lookup in our database. This will prevent us from continuing to make API requests for the same location. We will refresh the data stored occasionally to ensure it is not out of date.
@@ -31,6 +32,15 @@ Users will not have direct access to this data; rather, we will store this data 
 - 2-3 stretch requirements (hope to complete 1!)
   1. Some ML to help learn users' preferences
   2. Mobile friendly UI design
+
+## Initial Task Breakdown:
+- Frontend:
+    1. Methods to integrate with backend
+    2. UI for users -- HTML and CSS
+    3. Association of a users feelings with tags
+- Backend:
+    1. Make requests to Google Places API
+    2. Storage of the data returned from these requests in a database
 
 
 ## ProposalDraft:
