@@ -1,0 +1,29 @@
+{
+  "name": "DailyPlanner",
+  "version": "1.0.0",
+  "description": "## Project Description: 1. Who is it for?    - Anyone who is indecisive about what to do",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.4.5",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/es97/DailyPlanner.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/es97/DailyPlanner/issues"
+  },
+  "homepage": "https://github.com/es97/DailyPlanner#readme"
+}
