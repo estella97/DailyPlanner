@@ -19,7 +19,7 @@ class Commute extends React.Component {
             return <CommuteButton key={commute} commute={commute} />
         });
         return (
-            <div>
+            <div className="center">
                 {buttons}
             </div>
         )
