@@ -1,14 +1,15 @@
 import React from 'react';
+import './feelings.css';
 
 class FeelingButtons extends React.Component {
     render() {
         const feelings = ['Happy', 'Sad', 'Hungry', 'Active', 'Lazy', 'Excited', 'Friendly', 'Quiet'];
         // might need to divide to separate components when we add onClick functionality
         const feelingButtons = feelings.map((feeling) =>
-            <button id={feeling + 'Button'}>{feeling}</button>
+            <button className="button" key={feelings.indexOf(feeling)}>{feeling}</button>
         );
         return(
-            <div id="buttons">
+            <div>
                 <div className="row">
                     {feelingButtons.slice(0, 4)}
                 </div>
