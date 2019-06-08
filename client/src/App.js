@@ -6,8 +6,11 @@ import './App.css';
 function App() {
   return (
     <div>
+      <div className="title">
+        <h1>Plan Me</h1>
+      </div>
+      <Feelings />
       <Time />
-      <Feelings/>
     </div>
   );
 }
