@@ -1,0 +1,10 @@
+.horizontal {
+    overflow: auto;
+    float: left;
+    height: 10%;
+    width: 10%;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding: 5px 5px;
+    text-align: center;
+}
