@@ -1,5 +1,9 @@
 import { combineReducers } from 'redux';
 
-export default combineReducers({
+const userSelectionReducer = (userSelection, action) => {
+    return {};
+}
 
+export default combineReducers({
+    userSelection: userSelectionReducer
 });

@@ -1,10 +1,10 @@
 import React from 'react';
-import Todo from './components/time'
+import Time from './components/time'
 
 function App() {
   return (
     <div>
-      <Todo />
+      <Time />
     </div>
   );
 }
