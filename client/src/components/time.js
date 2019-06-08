@@ -1,9 +1,12 @@
 import React from "react";
+import { connect } from "react-redux";
 
-class Time extends React.Component {
+class Todo extends React.Component {
     render() {
-        return null;
+        return (
+            <h3>Test</h3>
+        )
     }
 }
 
-export default Time
+export default connect()(Todo);
