@@ -1,4 +1,3 @@
-/*Title*/
 .title {
     text-align: center;
     padding: 50px;
@@ -10,3 +9,7 @@ body {
     /* background-repeat: no-repeat; */
     background-size: cover;
   }
+
+.center {
+    text-align: center;
+}
