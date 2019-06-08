@@ -1,5 +1,5 @@
 import React from 'react';
-import Todo from './components/todo'
+import Todo from './components/time'
 
 function App() {
   return (
