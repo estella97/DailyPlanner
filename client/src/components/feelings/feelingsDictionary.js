@@ -1,0 +1,1 @@
+export const dictionary = ['Happy', 'Sad', 'Hungry', 'Active', 'Lazy', 'Excited', 'Friendly', 'Quiet'];

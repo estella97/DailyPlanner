@@ -5,7 +5,7 @@ class time extends React.Component {
     render() {
         return (
             <h3>I'm free for
-                <button>2 hour</button>
+                <button>2 hours</button>
                 and I'm feeling
             </h3>
         )

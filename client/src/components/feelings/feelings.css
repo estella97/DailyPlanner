@@ -16,3 +16,18 @@
     background-color: rgb(16, 120, 238);
     color: #fff9f9;
 }
+.buttonOnSelect {
+    background-color: rgb(16, 120, 238);
+    color: #fff9f9;
+    margin-left: 2%;
+    margin-right: 2%;
+    padding: 5px 5px;
+    width: 10%;
+    outline: none;
+    outline-style: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: solid #eeeeee 2px;
+    font-size: 18px;
+}

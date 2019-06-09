@@ -1,6 +1,6 @@
 import React from 'react';
 import Time from './components/time/time'
-import Feelings from './components/feelings/buttons'
+import Feelings from './components/feelings/feelings'
 import Commute from './components/commute/commute';
 import Plan from './components/plan/plan'
 import './App.css';

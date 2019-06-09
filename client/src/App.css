@@ -3,12 +3,12 @@
     padding: 50px;
   }
 
-body { 
-    background-image: url("./images/map-bg.png");
+body {
+    background-image: url("/image/map-bg.png");
     background-position: center;
     /* background-repeat: no-repeat; */
     background-size: cover;
-  }
+}
 
 .center {
     text-align: center;
