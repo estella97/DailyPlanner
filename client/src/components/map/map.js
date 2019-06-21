@@ -54,5 +54,5 @@ class RadiusMap extends React.Component {
 // }
 
 export default GoogleApiWrapper({
-    apiKey: 'AIzaSyBou9WAraqZGu5xbYGcp1H01owc9QxhSqw'
+    apiKey: ''
   })(RadiusMap);
