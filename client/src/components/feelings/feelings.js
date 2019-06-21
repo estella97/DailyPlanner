@@ -3,16 +3,17 @@ import { connect } from "react-redux";
 import { selectFeeling } from '../../actions/actions'
 import { dictionary } from './feelingsDictionary'
 import './feelings.css';
+import Button from 'react-bootstrap/Button';
 
 class Feeling extends React.Component {
     render() {
         const feelings = dictionary;
         let feelingButtons = feelings.map((feeling) =>
-            <button key={feeling} feeling={feeling}
+            <Button key={feeling} feeling={feeling}
                 onClick={() => this.props.selectFeeling(feeling)}
                 className={this.props.feelings[feeling]? "buttonOnSelect" : "button"}>
                 {feeling}
-            </button>
+            </Button>
         );
         return (
             <div>

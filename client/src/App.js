@@ -3,6 +3,7 @@ import Time from './components/time/time'
 import Feelings from './components/feelings/feelings'
 import Commute from './components/commute/commute';
 import Plan from './components/plan/plan'
+import RadiusMap from './components/map/map'
 import './App.css';
 
 function App() {
@@ -17,6 +18,9 @@ function App() {
         <br></br>
         <Commute />
         <Plan />
+        <div className='container'>
+          <RadiusMap />
+        </div>
       </div>
     </div>
   );
