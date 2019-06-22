@@ -31,3 +31,7 @@
     border-bottom: solid #eeeeee 2px;
     font-size: 18px;
 }
+
+.center {
+    text-align: center;
+}

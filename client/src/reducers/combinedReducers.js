@@ -1,10 +1,13 @@
 import { combineReducers } from 'redux';
-import { FLIP_STATUS, SELECT_COMMUTE } from '../actions/actionDictionary';
+import { FLIP_STATUS, SELECT_COMMUTE, SET_CURR_LOCATION, SET_TIME } from '../actions/actionDictionary';
 import { defaultCommuteType } from '../components/commute/commuteDictionary';
 import { dictionary } from '../components/feelings/feelingsDictionary'
 
-const timeReducer = (time, action) => {
-    return {};
+const timeReducer = (time="Select available time period", action) => {
+    if (action.type === SET_TIME) {
+        return action.time + " hours";
+    }
+    return time;
 }
 
 function generateInitFeelings() {
@@ -23,7 +26,6 @@ const feelingReducer = (feeling=generateInitFeelings(), action) => {
 }
 
 const commuteReducer = (commute=defaultCommuteType, action) => {
-    console.log(commute)
     if (action.type === SELECT_COMMUTE) {
         commute = action.commute;
     }
@@ -34,9 +36,17 @@ const userSelectionReducer = (userSelection, action) => {
     return {};
 }
 
+const mapReducer = (map={ lat: 32, lng: 32 }, action) => {
+    if (action.type === SET_CURR_LOCATION) {
+        map = {lat: action.lat, lng: action.lon};
+    }
+    return map;
+}
+
 export default combineReducers({
     time: timeReducer,
     feelings: feelingReducer,
     commute: commuteReducer,
-    userSelection: userSelectionReducer
+    userSelection: userSelectionReducer,
+    map: mapReducer
 });

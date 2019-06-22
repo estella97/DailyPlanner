@@ -19,6 +19,8 @@ class Plan extends React.Component {
                 <br></br>
                 <div>
                     {this.generateSelectedFeelings()}
+                    {Object.keys(this.props.feelings)}
+                    <br></br>
                     {this.props.commute}
                 </div>
             </div>

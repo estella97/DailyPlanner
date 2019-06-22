@@ -16,7 +16,7 @@ class Feeling extends React.Component {
             </Button>
         );
         return (
-            <div>
+            <div className="center">
                 <div className="row">
                     {feelingButtons.slice(0, 4)}
                 </div>

@@ -13,12 +13,14 @@ function App() {
         <h1>Plan Me</h1>
       </div>
       <div className="center">
-        <Time />
-        <Feelings />
+        <Time className="center" />
+        <br></br>
+        <Feelings className="center" />
         <br></br>
         <Commute />
+        <br></br>
         <Plan />
-        <div className='container'>
+        <div className='center'>
           <RadiusMap />
         </div>
       </div>
