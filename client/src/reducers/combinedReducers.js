@@ -1,25 +1,25 @@
 import { combineReducers } from 'redux';
-import { FLIP_STATUS, SELECT_COMMUTE } from '../actions/actionDictionary';
+import { UPDATE_FEELINGS, SELECT_COMMUTE } from '../actions/actionDictionary';
 import { defaultCommuteType } from '../components/commute/commuteDictionary';
-import { dictionary } from '../components/feelings/feelingsDictionary'
+// import { dictionary } from '../components/feelings/feelingsDictionary'
 
 const timeReducer = (time, action) => {
     return {};
 }
 
-function generateInitFeelings() {
-    let feelings = {};
-    for (let feeling of dictionary) {
-        feelings[feeling] = false;
-    }
-    return feelings
-}
+// function generateInitFeelings() {
+//     let feelings = {};
+//     for (let feeling of dictionary) {
+//         feelings[feeling] = false;
+//     }
+//     return feelings
+// }
 
-const feelingReducer = (feeling=generateInitFeelings(), action) => {
-    if (action.type === FLIP_STATUS) {
-        feeling = {...feeling, [action.feeling]: !feeling[action.feeling]};
+const feelingReducer = (feelings=[], action) => {
+    if (action.type === UPDATE_FEELINGS) {
+        feelings = action.feelings;
     }
-    return feeling;
+    return feelings;
 }
 
 const commuteReducer = (commute=defaultCommuteType, action) => {

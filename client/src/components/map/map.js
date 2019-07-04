@@ -33,7 +33,9 @@ class RadiusMap extends React.Component {
       return null;
     }
 
-    return <Map google={google} initialCenter={userLocation} zoom={10} />;
+    return( 
+        <Map style={{ display: 'block', margin: 'auto', width: '50%', height: '50%' }} google={google} center={userLocation} zoom={10} />
+    );
   }
 }
 
@@ -54,5 +56,5 @@ class RadiusMap extends React.Component {
 // }
 
 export default GoogleApiWrapper({
-    apiKey: ''
+    apiKey: 'AIzaSyBou9WAraqZGu5xbYGcp1H01owc9QxhSqw'
   })(RadiusMap);
