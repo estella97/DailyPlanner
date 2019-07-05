@@ -1,34 +1,27 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { selectFeeling } from '../../actions/actions'
+import { selectFeelings } from '../../actions/actions'
 import { dictionary } from './feelingsDictionary'
+import { Checkbox } from 'antd';
 import './feelings.css';
-import Button from 'react-bootstrap/Button';
 
 class Feeling extends React.Component {
+    handleChange(checkedValues) {
+        this.props.selectFeelings(checkedValues);
+    }
     render() {
         const feelings = dictionary;
-        let feelingButtons = feelings.map((feeling) =>
-            <Button key={feeling} feeling={feeling}
-                onClick={() => this.props.selectFeeling(feeling)}
-                className={this.props.feelings[feeling]? "buttonOnSelect" : "button"}>
-                {feeling}
-            </Button>
-        );
         return (
-            <div className="center">
-                <div className="row">
-                    {feelingButtons.slice(0, 4)}
-                </div>
-                <br></br>
-                <div className="row">
-                    {feelingButtons.slice(4, 8)}
-                </div>
+            <div>
+                <Checkbox.Group options={feelings} onChange={this.handleChange.bind(this)}>
+                    <br />
+                    <br />
+                </Checkbox.Group>
             </div>
         )
     }
 }
 
-const mapStateToProps = (state) => {return {feelings: state.feelings}};
-const mapDispatchToProps = { selectFeeling };
+const mapStateToProps = (state) => { return { feelings: state.feelings } };
+const mapDispatchToProps = { selectFeelings };
 export default connect(mapStateToProps, mapDispatchToProps)(Feeling);

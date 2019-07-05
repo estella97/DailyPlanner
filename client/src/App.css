@@ -1,15 +1,12 @@
 .title {
     text-align: center;
-    padding: 50px;
+    color: white;
   }
 
-body {
+.body {
     background-image: url("/image/map-bg.png");
     background-position: center;
     /* background-repeat: no-repeat; */
     background-size: cover;
-}
-
-.center {
     text-align: center;
 }

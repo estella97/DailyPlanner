@@ -2,7 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import { selectTime } from '../../actions/actions';
 
+import { Select } from 'antd';
+
+const { Option } = Select;
+
 class time extends React.Component {
+    handleChange(value) {
+        console.log(value);
+    }
     render() {
         return (
             <div>

@@ -1,4 +1,4 @@
-import { FLIP_STATUS, PLAN, SELECT_COMMUTE, SET_CURR_LOCATION, SET_TIME } from './actionDictionary';
+import { UPDATE_FEELINGS, FLIP_STATUS, PLAN, SELECT_COMMUTE, SET_CURR_LOCATION, SET_TIME } from './actionDictionary';
 
 function plan() {
     return {type: PLAN};
@@ -12,12 +12,12 @@ function selectCommute(commute) {
     return {type: SELECT_COMMUTE, commute: commute};
 }
 
-function selectFeeling(feeling) {
-    return {type: FLIP_STATUS, feeling: feeling};
+function selectFeelings(feelings) {
+    return {type: UPDATE_FEELINGS, feelings: feelings};
 }
 
 function updateLocation(lat, lon) {
     return {type: SET_CURR_LOCATION, lat: lat, lon: lon};
 }
 
-export { selectTime, selectFeeling, plan, selectCommute, updateLocation };
+export { selectTime, selectFeelings, plan, selectCommute, updateLocation };
