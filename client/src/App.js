@@ -39,7 +39,9 @@ function Main() {
       <Commute />
       <br></br>
       <Plan />
-      <RadiusMap />
+      <div className="map">
+        <RadiusMap />
+      </div>
     </Content>
   );
 }

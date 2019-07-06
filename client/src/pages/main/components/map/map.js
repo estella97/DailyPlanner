@@ -1,5 +1,6 @@
 import React from 'react';
 import { Map, GoogleApiWrapper } from 'google-maps-react';
+import { Spin } from 'antd';
 import './map.css';
 
 class RadiusMap extends React.Component {
@@ -29,12 +30,18 @@ class RadiusMap extends React.Component {
     const { google } = this.props;
 
     if (loading) {
-      return null;
+      return(
+        <div className='loading'>
+          <Spin size="large" />
+        </div>
+      );
     }
     console.log(userLocation)
 
     return(
-        <Map style={{ display: 'block', margin: 'auto', width: '50%', height: '50%' }} google={google} center={userLocation} zoom={10} />
+      <div style={{height: '500px', width: '100%'}}>
+        <Map google={google} center={userLocation} zoom={10}  style={{height: '500px', width: '100%'}}/>
+      </div>
     );
   }
 }
