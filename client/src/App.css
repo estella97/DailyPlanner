@@ -4,11 +4,16 @@
 }
 
 .body {
-  background-image: url("/image/map-bg.png");
+  /* background-image: url("/image/map-bg.png"); */
   background-position: center;
   /* background-repeat: no-repeat; */
   background-size: cover;
   text-align: center;
+}
+
+.map {
+  height: 100%;
+  width: 100%;
 }
 
 h1,
