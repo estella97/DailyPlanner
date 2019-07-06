@@ -1,9 +1,5 @@
 import { combineReducers } from 'redux';
-<<<<<<< HEAD
-import { FLIP_STATUS, SELECT_COMMUTE, SET_CURR_LOCATION, SET_TIME } from '../actions/actionDictionary';
-=======
-import { UPDATE_FEELINGS, SELECT_COMMUTE } from '../actions/actionDictionary';
->>>>>>> master
+import { FLIP_STATUS, UPDATE_FEELINGS, SELECT_COMMUTE, SET_CURR_LOCATION, SET_TIME } from '../actions/actionDictionary';
 import { defaultCommuteType } from '../components/commute/commuteDictionary';
 // import { dictionary } from '../components/feelings/feelingsDictionary'
 

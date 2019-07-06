@@ -17,7 +17,7 @@ Users will not have direct access to this data; rather, we will store this data 
    - We could add the ability for a user to login and see their past ‘plans’
    - We could remove the time constraints added by the user and instead of making a schedule just return a list of recommended things to do based on their feelings.
 
-## Project task requirements: 
+## Project task requirements:
 - 3-5 minimal requirements (will definitely complete)
   1. A frontend where users can enter their feelings
   2. Association of these feelings to tags that will be used to lookup places using the Google Places API, and subsequent storage of this data in our db

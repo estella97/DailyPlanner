@@ -1,20 +1,32 @@
 {
   "name": "DailyPlanner",
   "version": "1.0.0",
-  "description": "## Project Description: 1. Who is it for?    - Anyone who is indecisive about what to do",
   "main": "index.js",
   "directories": {
     "test": "tests"
   },
   "dependencies": {
     "@babel/runtime": "^7.4.5",
-    "concurrently": "^4.1.0",
+    "antd": "^3.20.0",
+    "bootstrap": "^4.3.1",
+    "customize-cra": "^0.2.14",
+    "google-maps-react": "^2.0.2",
+    "history": "^4.9.0",
+    "indexof": "0.0.1",
+    "meteor-node-stubs": "^0.4.1",
+    "mini-css-extract-plugin": "^0.7.0",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "^3.0.1",
+    "redux": "^4.0.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-plugin-import": "^1.12.0"
+  },
   "scripts": {
-    "start": "concurrently \"cd backend && node server.js\" \"cd client && npm start\""
+    "start": "./setup.sh"
   },
   "repository": {
     "type": "git",

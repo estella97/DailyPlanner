@@ -4,7 +4,8 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import reducers from './reducers/combinedReducers';
+import reducers from './pages/main/reducers/combinedReducers';
+import 'bootstrap/dist/css/bootstrap.css';
 import 'antd/dist/antd.css';
 
 ReactDOM.render(
