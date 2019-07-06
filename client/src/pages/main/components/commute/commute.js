@@ -8,7 +8,7 @@ class Commute extends React.Component {
     render() {
         let buttons = commutes.map((commute) => {
             // TODO: switch classes when select | notSelect
-            return <img src={process.env.PUBLIC_URL + "/image/" + commute + ".png"}
+            return <img src={"/image/" + commute + ".png"}
                 className="horizontal" alt={commute} key={commute} commute={commute}
                 onClick={() => this.props.selectCommute(commute)} />
         });
