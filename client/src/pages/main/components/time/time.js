@@ -9,7 +9,7 @@ class time extends React.Component {
     render() {
         let hours = [1,2,3,5,8];
         let options = hours.map((hour) => {
-            return <Option onClick={() => this.props.selectTime(hour)} key={hour.toString()}>{hour} hour</Option>
+            return <Option onClick={() => this.props.selectTime(hour)} key={hour.toString()}>{hour} {(hour > 1) ?  "hours" : "hour"}</Option>
         });
         return (
             <div>

@@ -38,10 +38,11 @@ function Main() {
       <br></br>
       <Commute />
       <br></br>
-      <Plan />
       <div className="map">
         <RadiusMap />
       </div>
+      <br></br>
+      <Plan />
     </Content>
   );
 }
