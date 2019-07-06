@@ -39,8 +39,8 @@ class RadiusMap extends React.Component {
     console.log(userLocation)
 
     return(
-      <div style={{position: 'relative', height: '300px', width: '100%'}}>
-        <Map google={google} center={userLocation} zoom={10}  style={{position: 'relative', height: '300px', width: '50%'}}/>
+      <div style={{position: 'relative', height: '400px', width: '100%', alignContent: 'center'}}>
+        <Map google={google} center={userLocation} zoom={10}  style={{position: 'fixed', height: '100%', width: '100%'}}/>
       </div>
     );
   }
