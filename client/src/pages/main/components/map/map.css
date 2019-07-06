@@ -3,3 +3,8 @@
    width: '100%';
    justify-content: 'center';
 }
+
+.map {
+   height: '50%';
+   width: '50%';
+}

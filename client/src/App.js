@@ -11,8 +11,8 @@ function App() {
   return (
     <Router history={history}>
       <Layout>
-        <Header>
-          <h1 className="title">Plan Me</h1>
+        <Header className="title">
+          <h1>Plan Me</h1>
         </Header>
       </Layout>
       <div>
