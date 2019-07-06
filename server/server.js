@@ -1,5 +1,28 @@
 import { Meteor } from "meteor/meteor";
+import { API } from '../API';
 
+Meteor.startup(() => {
+    // TODO: Setup database
+});
+
+Meteor.methods({
+    plan: (time, commute, feelings, geoPoints, radius) => {
+        let params = [time, commute, feelings, geoPoints, radius];
+        if (validParam(params, API.plan.input)) {
+            // TODO: handle database here
+            return {};
+        } else {
+            throw new Meteor.Error('Invalid Args', 'Invalid Inputs');
+        }
+    },
+});
+
+// TODO: valid parameters types
+function validParam() {
+    return true;
+}
+
+// old code
 // const mongoose = require('mongoose');
 // const express = require('express');
 // var cors = require('cors');

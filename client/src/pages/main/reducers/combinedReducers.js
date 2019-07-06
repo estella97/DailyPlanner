@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { FLIP_STATUS, UPDATE_FEELINGS, SELECT_COMMUTE, SET_CURR_LOCATION, SET_TIME } from '../actions/actionDictionary';
+import { FLIP_STATUS, UPDATE_FEELINGS, SELECT_COMMUTE, SET_CURR_LOCATION, SET_TIME, PLAN } from '../actions/actionDictionary';
 import { defaultCommuteType } from '../components/commute/commuteDictionary';
 // import { dictionary } from '../components/feelings/feelingsDictionary'
 
@@ -31,8 +31,12 @@ const commuteReducer = (commute=defaultCommuteType, action) => {
     }
     return commute;
 }
-
-const userSelectionReducer = (userSelection, action) => {
+// TODO
+let temp = 1;
+const userSelectionReducer = (userSelection={}, action) => {
+    if (action.type === PLAN) {
+        return {"haha": temp++};
+    }
     return {};
 }
 
@@ -47,6 +51,6 @@ export default combineReducers({
     time: timeReducer,
     feelings: feelingReducer,
     commute: commuteReducer,
-    userSelection: userSelectionReducer,
+    plan: userSelectionReducer,
     map: mapReducer
 });

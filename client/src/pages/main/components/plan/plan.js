@@ -3,8 +3,25 @@ import { connect } from "react-redux";
 import { dictionary } from '../feelings/feelingsDictionary'
 import { plan } from '../../actions/actions'
 import './plan.css';
+import { Meteor } from 'meteor/meteor';
+import { API } from '../../../../../../API';
+import { history } from '../../../nav/history';
 
 class Plan extends React.Component {
+    plan = () => {
+        // TODO: add validations here
+        // TODO: add geoPoints handler
+        Meteor.call(API.plan.name, (this.props.time, this.props.commute, this.generateSelectedFeelings(),
+        {"lat": 123.123, "lon": 47.47}, 100), (err, res) => {
+            if (err) {
+                // TODO: handle this err
+            } else {
+                // TODO: somehow store the results before redirecting to the next page
+                history.push('/result');
+                window.location.reload();
+            }
+        });
+    }
     generateSelectedFeelings() {
         return dictionary.filter((feeling) => {
             return this.props.feelings[feeling];
@@ -13,7 +30,7 @@ class Plan extends React.Component {
     render() {
         return (
             <div>
-                <button className="plan" onClick={() => this.props.plan()}>
+                <button className="plan" onClick={this.plan}>
                     Plan
                 </button>
                 <br></br>
@@ -31,7 +48,8 @@ class Plan extends React.Component {
 const mapStateToProps = (state) => {
     return {
         feelings: state.feelings,
-        commute: state.commute
+        commute: state.commute,
+        time: state.time,
     }
 };
 const mapDispatchToProps = { plan };
