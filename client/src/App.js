@@ -17,7 +17,7 @@ function App() {
       </Layout>
       <div>
         <Route exact path="/" component={Main} />
-        <Route path="/result" component={Result} />
+        <Route path="/results" component={ResultPage} />
       </div>
       <Footer>Footer</Footer>
     </Router>
@@ -46,12 +46,11 @@ function Main() {
 }
 
 // Result Page Definition
-function Result() {
+import Result from './pages/result/result';
+function ResultPage() {
   return (
     <Content className="body">
-      <h4>
-        Hello
-      </h4>
+      <Result />
     </Content>
   )
 }

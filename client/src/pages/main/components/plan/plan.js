@@ -17,7 +17,8 @@ class Plan extends React.Component {
                 // TODO: handle this err
             } else {
                 // TODO: somehow store the results before redirecting to the next page
-                history.push('/result');
+                localStorage.setItem('results', JSON.stringify(res));
+                history.push('/results');
                 window.location.reload();
             }
         });
