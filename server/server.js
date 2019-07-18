@@ -22,7 +22,7 @@ Meteor.methods({
     plan: (time, commute, feelings, geoPoint, radius) => {
         try {
             // TODO
-            time = 2;
+            time = 5;
             commute = "bus";
             feelings = ["Happy"];
             geoPoint = { lat: 49.263395499999994, lng: -123.25604360000001 };
@@ -67,15 +67,16 @@ function plan(time, commute, feelings, geoPoint, radius) {
         // randomly select one nearby place from placesCanVisitWithinTime
         let maxRandomIndex = placesCanVisitWithinTime.length > 5 ? 5 : placesCanVisitWithinTime.length;
         let place = placesCanVisitWithinTime[Math.floor(Math.random() * maxRandomIndex)];
-        let timeObj = {
+        let commuteInfo = {
+            commuteFrom: geoPoint,
             commuteType: commute,
             commuteTime: estimateCommuteTime(place, geoPoint, commute)
         };
-        plan.push(timeObj);
+        plan.push(commuteInfo);
         plan.push(place);
         // update for the next iteration
         remove(places, place);
-        time -= timeObj.commuteTime;
+        time -= (commuteInfo.commuteTime + timeSpendInEachPlace);
         geoPoint = place.geometry.location;
     }
     return plan;
