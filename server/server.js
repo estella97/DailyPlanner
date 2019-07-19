@@ -1,13 +1,15 @@
 import { Meteor } from "meteor/meteor";
 import { Mongo } from "meteor/mongo";
-import { HTTP } from 'meteor/http'
+import { HTTP } from 'meteor/http';
 
 checkStringFormat();
 
 const db = new MongoInternals.RemoteCollectionDriver(process.env.MONGO_URL);
 const dbManagerCollectionName = "PlannerDataManager";
+const feedbackCollectionName = "PlannerFeedback"
 const CACHE_EXPIRE_TIME = 10000; // ms // TODO
 let dbManagerCollection = null;
+let feedbackCollection = null;
 let areaDatabase = {};
 
 Meteor.startup(() => {
@@ -15,6 +17,11 @@ Meteor.startup(() => {
     dbManagerCollection.schema = new SimpleSchema({
         areaCollectionName: { type: String },
         lastUpdateTimestamp: { type: Number }
+    });
+    feedbackCollection = new Mongo.Collection(feedbackCollectionName, { _driver: db });
+    feedbackCollection.schema = new SimpleSchema({
+        feedback: { type: String },
+        email: { type: String }
     });
 });
 
@@ -33,6 +40,15 @@ Meteor.methods({
             throw new Meteor.Error("Something wrong.", "Please retry later!")
         }
     },
+    addFeedback: (feedbackObj) => {
+        feedbackCollection.insert({
+            feedback: feedbackObj.feedback,
+            email: feedbackObj.email
+        });
+    },
+    getFeedbackData: () => {
+        return feedbackCollection.find({}).fetch()
+    }
 });
 
 function plan(time, commute, feelings, geoPoint, radius) {

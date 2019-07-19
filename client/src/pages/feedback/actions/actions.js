@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { PUT_FEEDBACK, DELETE_FEEDBACK, GET_FEEDBACK, TOGGLE_FORM_INPUT, CLEAR_FORM, UPDATE_TITLE, UPDATE_FEEDBACK, UPDATE_NAME } from './actionDictionary.js'
 
 export const updateField = (newValue, fieldType) => {
-    switch(fieldType) {
+    switch (fieldType) {
         case UPDATE_TITLE:
             return {
                 type: UPDATE_TITLE,
@@ -23,8 +23,8 @@ export const updateField = (newValue, fieldType) => {
                 type: CLEAR_FORM
             }
         default:
-           return; 
-    }; 
+            return;
+    };
 }
 
 export const putFeedback = (newFeedback) => {
@@ -36,19 +36,18 @@ export const putFeedback = (newFeedback) => {
 
 export const putFeedbackData = (newFeedback) => {
     return (dispatch) => {
-        Meteor.call('addFeedback', 
-        {   
-            _id: newFeedback._id,
-            title: newFeedback.title,
-            name: newFeedback.name,
-            feedback: newFeedback.feedback
-        })
-        .catch(error => {
-            throw error;
-        })
-        .then(
-            dispatch(putFeedback(newFeedback))
-        );
+        Meteor.call('addFeedback',
+            {
+                _id: newFeedback._id,
+                feedback: newFeedback.feedback,
+                email: newFeedback.name
+            })
+            .catch(error => {
+                throw error;
+            })
+            .then(
+                dispatch(putFeedback(newFeedback))
+            );
     };
 }
 
@@ -63,12 +62,12 @@ export const getFeedbackData = () => {
     return (dispatch) => {
         Meteor.call('getFeedback')
             .catch(error => {
-                throw(error);
+                throw (error);
             })
             .then(response => {
-                dispatch(fetchFeedback(response.data))
+                dispatch(fetchFeedback(response));
             })
-    };       
+    };
 };
 
 export const deleteFeedback = (feedbackid) => {
@@ -81,12 +80,12 @@ export const deleteFeedbackData = (feedbackid) => {
     return (dispatch) => {
         Meteor.call('deleteFeedback', {
             data: {
-                id: feedbackid
+                _id: feedbackid
             }
         })
-        .then(
-            dispatch(deleteThought(feedbackid))
-        );
+            .then(
+                dispatch(deleteThought(feedbackid))
+            );
     };
 }
 

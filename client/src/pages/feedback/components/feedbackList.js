@@ -11,19 +11,19 @@ class PostList extends React.Component {
     updateFeedback(post) {
         //TODO
     }
-    
+
     render() {
         const posts = this.props.posts;
         if (posts === null || posts.length === 0) {
             return null; //don't render this component if there is no feedback
         }
         const listItems = posts.map((post) =>
-            <Collapsible key={ post._id } trigger={post.title}>
-                <p>{ post.feedback }</p>
+            <Collapsible key={post._id} trigger={post.title}>
+                <p>{post.feedback}</p>
                 <div className="row">
-                    <button onClick={ this.deleteFeedback.bind(this, post._id) }>Delete</button>
+                    <button onClick={this.deleteFeedback.bind(this, post._id)}>Delete</button>
                 </div>
-                <p>{ post.name }</p>
+                <p>{post.name}</p>
             </Collapsible>
         );
         return (
@@ -31,7 +31,7 @@ class PostList extends React.Component {
                 <h1 id="feedbackTitle">Feedback</h1>
                 <p id="feedbackInfo">Click a title to view the feedback</p>
                 {listItems}
-	        </div>
+            </div>
         );
     }
 }

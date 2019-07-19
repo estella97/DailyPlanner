@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from "react-router";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Layout } from 'antd';
 const { Header, Footer, Content } = Layout;
 import { history } from './pages/nav/history';
@@ -20,7 +20,11 @@ function App() {
         <Route path="/results" component={ResultPage} />
         <Route path="/feedback" component={FeedbackPage} />
       </div>
-      <Footer>Footer</Footer>
+      <Footer>
+        <div>
+          <Link to="/feedback">Give us feedback!</Link>
+        </div>
+      </Footer>
     </Router>
   );
 }
@@ -61,6 +65,7 @@ import FeedbackList from './pages/feedback/components/feedbackList';
 function FeedbackPage() {
   return (
     <Content className="feedback">
+      <Link to="/">Home Page</Link>
       <Feedback />
       <FeedbackList />
     </Content>
