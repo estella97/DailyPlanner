@@ -1,11 +1,11 @@
 import React from 'react';
 import Collapsible from 'react-collapsible';
 import { connect } from 'react-redux';
-import { deleteFeedbackData } from '../actions/actions';
+import { deleteFeedback } from '../actions/actions'; //TODO update to deleteFeedbackData after Api implementation
 
 class PostList extends React.Component {
     deleteFeedback(postid) {
-        this.props.deleteFeedbackData(postid);
+        this.props.deleteFeedback(postid);
     }
 
     updateFeedback(post) {
@@ -21,7 +21,6 @@ class PostList extends React.Component {
             <Collapsible key={ post._id } trigger={post.title}>
                 <p>{ post.feedback }</p>
                 <div className="row">
-                    <button onClick={ this.updateFeedback.bind(this, post) }>Update</button>
                     <button onClick={ this.deleteFeedback.bind(this, post._id) }>Delete</button>
                 </div>
                 <p>{ post.name }</p>
@@ -43,4 +42,4 @@ const mapStateToProps = (state) => {
     };
 }
 
-export default connect(mapStateToProps, { deleteFeedbackData })(PostList);
+export default connect(mapStateToProps, { deleteFeedback })(PostList);
