@@ -3,6 +3,10 @@
   color: white;
 }
 
+.feedback {
+  background-color: blue;
+}
+
 .body {
   /* background-image: url("/image/map-bg.png"); */
   background-position: center;

@@ -18,6 +18,7 @@ function App() {
       <div>
         <Route exact path="/" component={Main} />
         <Route path="/results" component={ResultPage} />
+        <Route path="/feedback" component={FeedbackPage} />
       </div>
       <Footer>Footer</Footer>
     </Router>
@@ -51,6 +52,17 @@ function ResultPage() {
   return (
     <Content className="body">
       <Result />
+    </Content>
+  )
+}
+
+import Feedback from './pages/feedback/components/feedback';
+import FeedbackList from './pages/feedback/components/feedbackList';
+function FeedbackPage() {
+  return (
+    <Content className="feedback">
+      <Feedback />
+      <FeedbackList />
     </Content>
   )
 }
