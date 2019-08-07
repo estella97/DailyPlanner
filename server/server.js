@@ -41,13 +41,17 @@ Meteor.methods({
         }
     },
     addFeedback: (feedbackObj) => {
-        feedbackCollection.insert({
-            feedback: feedbackObj.feedback,
-            email: feedbackObj.email
-        });
+        console.log("DEBUG--- " + feedbackObj);
+        console.log("DEBUG--- " + JSON.stringify(feedbackObj));
+        feedbackCollection.insert(feedbackObj);
+        // feedbackCollection.insert({
+        //     feedback: feedbackObj.feedback,
+        //     email: feedbackObj.email
+        // });
     },
-    getFeedbackData: () => {
-        return feedbackCollection.find({}).fetch()
+    getFeedback: () => {
+        console.log("hahaha")
+        return feedbackCollection.find({}).fetch();
     }
 });
 

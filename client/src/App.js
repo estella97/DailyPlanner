@@ -60,15 +60,18 @@ function ResultPage() {
   )
 }
 
-import Feedback from './pages/feedback/components/feedback';
-import FeedbackList from './pages/feedback/components/feedbackList';
+// Feedback Page Definition
+import Feedback from './pages/feedback/Feedback';
 function FeedbackPage() {
   return (
-    <Content className="feedback">
-      <Link to="/">Home Page</Link>
-      <Feedback />
-      <FeedbackList />
-    </Content>
+    <Layout>
+      <Header>
+        <Link to="/">Back to Home Page</Link>
+      </Header>
+      <Content>
+        <Feedback />
+      </Content>
+    </Layout>
   )
 }
 

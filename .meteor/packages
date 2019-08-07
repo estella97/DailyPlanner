@@ -20,3 +20,4 @@ react-meteor-data       # React higher-order component for reactively tracking M
 dburles:mongo-collection-instances
 aldeed:simple-schema
 http
+fourseven:scss
