@@ -10,10 +10,9 @@ class Feeling extends React.Component {
         this.props.selectFeelings(checkedValues);
     }
     render() {
-        const feelings = dictionary;
         return (
             <div>
-                <Checkbox.Group options={feelings} onChange={this.handleChange.bind(this)}>
+                <Checkbox.Group options={dictionary} onChange={this.handleChange.bind(this)}>
                     <br />
                     <br />
                 </Checkbox.Group>

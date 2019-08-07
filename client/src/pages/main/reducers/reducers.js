@@ -3,9 +3,9 @@ import { FLIP_STATUS, UPDATE_FEELINGS, SELECT_COMMUTE, SET_CURR_LOCATION, SET_TI
 import { defaultCommuteType } from '../components/commute/commuteDictionary';
 // import { dictionary } from '../components/feelings/feelingsDictionary'
 
-export const timeReducer = (time="Select available time period", action) => {
+export const timeReducer = (time=1, action) => {
     if (action.type === SET_TIME) {
-        return action.time + " hours";
+        return action.time;
     }
     return time;
 }

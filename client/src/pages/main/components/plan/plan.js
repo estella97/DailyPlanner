@@ -11,7 +11,10 @@ class Plan extends React.Component {
     plan = () => {
         // TODO: add validations here
         // TODO: add geoPoints handler
-        Meteor.call(API.plan.name, (this.props.time, this.props.commute, this.generateSelectedFeelings(),
+        console.log(this.props.time)
+        console.log(this.props.commute)
+        console.log(this.props.feelings)
+        Meteor.call(API.plan.name, (this.props.time, this.props.commute, this.props.feelings,
         {"lat": 123.123, "lon": 47.47}, 100), (err, res) => {
             if (err) {
                 // TODO: handle this err
@@ -23,24 +26,12 @@ class Plan extends React.Component {
             }
         });
     }
-    generateSelectedFeelings() {
-        return dictionary.filter((feeling) => {
-            return this.props.feelings[feeling];
-        })
-    }
     render() {
         return (
             <div>
                 <button className="plan" onClick={this.plan}>
                     Plan
                 </button>
-                <br></br>
-                <div>
-                    {this.generateSelectedFeelings()}
-                    {Object.keys(this.props.feelings)}
-                    <br></br>
-                    {this.props.commute}
-                </div>
             </div>
         )
     }
