@@ -9,8 +9,9 @@ class Commute extends React.Component {
     render() {
         let buttons = commutes.map((commute) => {
             // TODO: switch classes when select | notSelect
-            return <Avatar shape="square" src={"/image/" + commute + ".png"}
-                size="large" style={{marginRight: '5%', marginLeft: '5%', cursor: 'pointer'}} alt={commute} key={commute} commute={commute}
+            return <Avatar src={"/image/" + commute + ".png"} size="large" alt={commute} key={commute}
+                commute={commute} style={{marginRight: '7%', marginLeft: '7%', cursor: 'pointer'}}
+                shape={commute === this.props.commuteState? "circle" : "square"}
                 onClick={() => this.props.selectCommute(commute)} />
         });
         return (

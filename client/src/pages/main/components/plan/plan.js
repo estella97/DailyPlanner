@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
 import { dictionary } from '../feelings/feelingsDictionary'
-import { plan } from '../../actions/actions'
 import './plan.css';
 import { Meteor } from 'meteor/meteor';
 import { API } from '../../../../../../API';
@@ -32,6 +31,8 @@ class Plan extends React.Component {
                 <button className="plan" onClick={this.plan}>
                     Plan
                 </button>
+                <br></br>
+                <br></br>
             </div>
         )
     }
@@ -44,5 +45,5 @@ const mapStateToProps = (state) => {
         time: state.time,
     }
 };
-const mapDispatchToProps = { plan };
-export default connect(mapStateToProps, mapDispatchToProps)(Plan);
+
+export default connect(mapStateToProps)(Plan);

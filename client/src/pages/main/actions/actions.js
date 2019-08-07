@@ -16,8 +16,4 @@ function updateLocation(lat, lon) {
     return {type: SET_CURR_LOCATION, lat: lat, lon: lon};
 }
 
-function plan() {
-    return {type: PLAN};
-}
-
-export { selectTime, selectFeelings, plan, selectCommute, updateLocation };
+export { selectTime, selectFeelings, selectCommute, updateLocation };

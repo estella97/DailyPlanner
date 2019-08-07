@@ -10,14 +10,6 @@ export const timeReducer = (time=1, action) => {
     return time;
 }
 
-// function generateInitFeelings() {
-//     let feelings = {};
-//     for (let feeling of dictionary) {
-//         feelings[feeling] = false;
-//     }
-//     return feelings
-// }
-
 export const feelingReducer = (feelings=[], action) => {
     if (action.type === UPDATE_FEELINGS) {
         feelings = action.feelings;
@@ -30,14 +22,6 @@ export const commuteReducer = (commute=defaultCommuteType, action) => {
         commute = action.commute;
     }
     return commute;
-}
-// TODO
-let temp = 1;
-export const userSelectionReducer = (userSelection={}, action) => {
-    if (action.type === PLAN) {
-        return {"haha": temp++};
-    }
-    return {};
 }
 
 export const mapReducer = (map={ lat: 32, lng: 32 }, action) => {
