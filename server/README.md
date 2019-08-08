@@ -11,12 +11,41 @@ More types: https://developers.google.com/places/web-service/supported_types
 
 ## Feelings to Place Types
 ```JSON
-{
+const feelingsDictionary = {
     "Happy": [
         "bar",
-        "restaurant"
+        "restaurant",
+        "bar",
+        "book_store"
+    ],
+    "Sad": [
+        "park",
+        "cafe"
+    ],
+    "Hungry": [
+        "restaurant",
+        "cafe",
+        "supermarket"
+    ],
+    "Active": [
+        "park"
+    ],
+    "Lazy": [
+        "restaurant",
+        "spa"
+    ],
+    "Excited": [
+        "bar"
+    ],
+    "Friendly": [
+        "bar",
+        "park"
+    ],
+    "Quiet": [
+        "book_store",
+        "library"
     ]
-}
+};
 ```
 
 ## Return Example

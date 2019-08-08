@@ -7,7 +7,7 @@ checkStringFormat();
 const db = new MongoInternals.RemoteCollectionDriver(process.env.MONGO_URL);
 const dbManagerCollectionName = "PlannerDataManager";
 const feedbackCollectionName = "PlannerFeedback"
-const CACHE_EXPIRE_TIME = 10000; // ms // TODO
+const CACHE_EXPIRE_TIME = 100000; // ms // TODO
 let dbManagerCollection = null;
 let feedbackCollection = null;
 let areaDatabase = {};
@@ -29,9 +29,7 @@ Meteor.methods({
     plan: (time, commute, feelings, geoPoint, radius) => {
         try {
             // TODO
-            time = 5;
-            commute = "bus";
-            feelings = ["Happy"];
+            console.log(feelings)
             geoPoint = { lat: 49.263395499999994, lng: -123.25604360000001 };
             radius = 10000; // in meters // TODO: I think 100 KM is probably the max allowed radius, which is REALLY far already...
             return plan(time, commute, feelings, geoPoint, radius);
@@ -41,8 +39,6 @@ Meteor.methods({
         }
     },
     addFeedback: (feedbackObj) => {
-        console.log("DEBUG--- " + feedbackObj);
-        console.log("DEBUG--- " + JSON.stringify(feedbackObj));
         feedbackCollection.insert(feedbackObj);
         // feedbackCollection.insert({
         //     feedback: feedbackObj.feedback,
@@ -50,12 +46,12 @@ Meteor.methods({
         // });
     },
     getFeedback: () => {
-        console.log("hahaha")
         return feedbackCollection.find({}).fetch();
     }
 });
 
 function plan(time, commute, feelings, geoPoint, radius) {
+    console.log(feelings)
     let places = [];
     let areaCollections = calculateAreasCoveredByRadius(geoPoint, radius);
     for (let areaCollectionName of areaCollections) {
@@ -68,6 +64,7 @@ function plan(time, commute, feelings, geoPoint, radius) {
         places = places.concat(placesInThisArea);
     }
     places = reduceDuplicatePlaces(places);
+    console.log(places);
     places = places.filter(place =>
         withinRadius(place, geoPoint, radius) &&
         isOpening(place) &&
@@ -138,6 +135,8 @@ function estimateCommuteTime(place, geoPoint, commute) {
 function needsUpdate(areaCollectionName) {
     // A collection needs to be updated when it doesn't exist in the database manager or it's expired
     let result = dbManagerCollection.find({ areaCollectionName: areaCollectionName }).fetch();
+    console.log(result)
+    console.log(Date.now() - result[0].lastUpdateTimestamp)
     return result.length === 0 || areaDatabase.areaCollectionName === undefined
         || Date.now() - result[0].lastUpdateTimestamp > CACHE_EXPIRE_TIME;
 }
@@ -174,7 +173,7 @@ const GOOGLE_KEY = "AIzaSyBou9WAraqZGu5xbYGcp1H01owc9QxhSqw";
 
 // TODO: enable all types, probably also needs to reduce request rate
 const GOOGLE_PLACES_TYPES = [
-    "restaurant", "park"
+    "restaurant", "park", "bar", "beauty_salon", "book_store", "cafe", 'spa', 'store', 'supermarket', "library"
 ]
 function fetchPlacesFromGoogle(geoPoint) {
     let places = [];
@@ -248,10 +247,48 @@ const avgCommuteSpeed = {
     "car": 35000
 };
 
+// 'Happy'
+// 'Sad'
+// 'Hungry'
+// 'Active'
+// 'Lazy'
+// 'Excited'
+// 'Friendly'
+// 'Quiet'
+//"restaurant", "park", "bar", "beauty_salon", "book_store", "cafe", 'spa', 'store', 'supermarket', "library"
 const feelingsDictionary = {
     "Happy": [
         "bar",
-        "restaurant"
+        "restaurant",
+        "bar",
+        "book_store"
+    ],
+    "Sad": [
+        "park",
+        "cafe"
+    ],
+    "Hungry": [
+        "restaurant",
+        "cafe",
+        "supermarket"
+    ],
+    "Active": [
+        "park"
+    ],
+    "Lazy": [
+        "restaurant",
+        "spa"
+    ],
+    "Excited": [
+        "bar"
+    ],
+    "Friendly": [
+        "bar",
+        "park"
+    ],
+    "Quiet": [
+        "book_store",
+        "library"
     ]
 };
 

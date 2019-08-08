@@ -13,10 +13,10 @@ class Plan extends React.Component {
         console.log(this.props.time)
         console.log(this.props.commute)
         console.log(this.props.feelings)
-        Meteor.call(API.plan.name, (this.props.time, this.props.commute, this.props.feelings,
-        {"lat": 123.123, "lon": 47.47}, 100), (err, res) => {
+        Meteor.call("plan", this.props.time, this.props.commute, this.props.feelings,
+        {"lat": 123.123, "lon": 47.47}, 100, (err, res) => {
             if (err) {
-                // TODO: handle this err
+                console.log(err)
             } else {
                 // TODO: somehow store the results before redirecting to the next page
                 localStorage.setItem('results', JSON.stringify(res));
