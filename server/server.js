@@ -7,7 +7,7 @@ checkStringFormat();
 const db = new MongoInternals.RemoteCollectionDriver(process.env.MONGO_URL);
 const dbManagerCollectionName = "PlannerDataManager";
 const feedbackCollectionName = "PlannerFeedback"
-const CACHE_EXPIRE_TIME = 100000; // ms // TODO
+const CACHE_EXPIRE_TIME = 100000000; // ms // TODO
 let dbManagerCollection = null;
 let feedbackCollection = null;
 let areaDatabase = {};
@@ -28,8 +28,6 @@ Meteor.startup(() => {
 Meteor.methods({
     plan: (time, commute, feelings, geoPoint, radius) => {
         try {
-            // TODO
-            console.log(feelings)
             geoPoint = { lat: 49.263395499999994, lng: -123.25604360000001 };
             radius = 10000; // in meters // TODO: I think 100 KM is probably the max allowed radius, which is REALLY far already...
             return plan(time, commute, feelings, geoPoint, radius);
@@ -40,10 +38,6 @@ Meteor.methods({
     },
     addFeedback: (feedbackObj) => {
         feedbackCollection.insert(feedbackObj);
-        // feedbackCollection.insert({
-        //     feedback: feedbackObj.feedback,
-        //     email: feedbackObj.email
-        // });
     },
     getFeedback: () => {
         return feedbackCollection.find({}).fetch();
@@ -51,7 +45,6 @@ Meteor.methods({
 });
 
 function plan(time, commute, feelings, geoPoint, radius) {
-    console.log(feelings)
     let places = [];
     let areaCollections = calculateAreasCoveredByRadius(geoPoint, radius);
     for (let areaCollectionName of areaCollections) {
@@ -59,17 +52,18 @@ function plan(time, commute, feelings, geoPoint, radius) {
         if (needsUpdate(areaCollectionName)) {
             placesInThisArea = updateAreaCollection(areaCollectionName);
         } else {
-            placesInThisArea = areaDatabase.areaCollectionName.find({}).fetch();
+            placesInThisArea = areaDatabase[areaCollectionName].find({}).fetch();
         }
         places = places.concat(placesInThisArea);
     }
     places = reduceDuplicatePlaces(places);
-    console.log(places);
+    console.log("Found " + places.length + " possible places");
     places = places.filter(place =>
         withinRadius(place, geoPoint, radius) &&
         isOpening(place) &&
         matchFeelings(place, feelings)
     );
+    console.log("After filtering, found " + places.length + " possible places")
 
     let plan = [];
     while (time > 0 && places.length > 0) {
@@ -96,6 +90,10 @@ function plan(time, commute, feelings, geoPoint, radius) {
         time -= (commuteInfo.commuteTime + timeSpendInEachPlace);
         geoPoint = place.geometry.location;
     }
+    console.log("Received a plan request with paramemters: {0} hours, using {1}, feeling {2}, at {3}, within in {4} kms".format(
+        time, commute, feelings, JSON.stringify(geoPoint), radius
+    ));
+    console.log("Calculated Results: " + JSON.stringify(plan));
     return plan;
 }
 
@@ -114,10 +112,13 @@ function withinRadius(place, geoPoint, radius) {
 
 function isOpening(place) {
     // true if opening_hours is not applicable || is actually open
-    return place.opening_hours === undefined || place.opening_hours.open_now
+    return place.opening_hours === undefined || place.opening_hours.open_now;
 }
 
 function matchFeelings(place, feelings) {
+    if (feelings.length === 0) {
+        return true;
+    }
     let matchedTypes = matchFeelingsToTypes(feelings);
     return place.types.reduce((matchFeelings, currPlaceType) => {
         return matchFeelings || matchedTypes.has(currPlaceType)
@@ -135,13 +136,11 @@ function estimateCommuteTime(place, geoPoint, commute) {
 function needsUpdate(areaCollectionName) {
     // A collection needs to be updated when it doesn't exist in the database manager or it's expired
     let result = dbManagerCollection.find({ areaCollectionName: areaCollectionName }).fetch();
-    console.log(result)
-    console.log(Date.now() - result[0].lastUpdateTimestamp)
-    return result.length === 0 || areaDatabase.areaCollectionName === undefined
-        || Date.now() - result[0].lastUpdateTimestamp > CACHE_EXPIRE_TIME;
+    return result.length === 0 || areaDatabase[areaCollectionName] === undefined || Date.now() - result[0].lastUpdateTimestamp > CACHE_EXPIRE_TIME;
 }
 
 function updateAreaCollection(areaCollectionName) {
+    console.log("Updating Area Collection: " + areaCollectionName + " at " + Date.now());
     // update database manager to reflect the update
     dbManagerCollection.remove({ areaCollectionName: areaCollectionName }, err => {
         if (err !== null) {
@@ -150,16 +149,17 @@ function updateAreaCollection(areaCollectionName) {
     });
     dbManagerCollection.insert({ areaCollectionName: areaCollectionName, lastUpdateTimestamp: Date.now() });
     // create area collection or clear its previous data
-    if (areaDatabase.areaCollectionName === null || areaDatabase.areaCollectionName === undefined) {
-        areaDatabase.areaCollectionName = new Mongo.Collection(areaCollectionName, { _driver: db });
+    if (areaDatabase[areaCollectionName] === null || areaDatabase[areaCollectionName] === undefined) {
+        console.log("Area collection doesn't exist before --- Creating new area collection: " + areaCollectionName);
+        areaDatabase[areaCollectionName] = new Mongo.Collection(areaCollectionName, { _driver: db });
     } else {
-        areaDatabase.areaCollectionName.remove({});
+        areaDatabase[areaCollectionName].remove({});
     }
     // fetch places data from google at the center of this area
     let centerGeoPoint = areaCollectionNameToCenterGeoPoint(areaCollectionName);
     let places = fetchPlacesFromGoogle(centerGeoPoint);
     for (let place of places) {
-        areaDatabase.areaCollectionName.insert(place);
+        areaDatabase[areaCollectionName].insert(place);
     }
     return places;
 }
@@ -172,8 +172,11 @@ const GOOGLE_KEY = "AIzaSyBou9WAraqZGu5xbYGcp1H01owc9QxhSqw";
 //     'pet_store', 'pharmacy', 'restaurant', 'shoe_store', 'shopping_mall', 'spa', 'store', 'supermarket', 'zoo'];
 
 // TODO: enable all types, probably also needs to reduce request rate
+// const GOOGLE_PLACES_TYPES = [
+//     "restaurant", "park", "bar", "beauty_salon", "book_store", "cafe", 'spa', 'store', 'supermarket', "library"
+// ]
 const GOOGLE_PLACES_TYPES = [
-    "restaurant", "park", "bar", "beauty_salon", "book_store", "cafe", 'spa', 'store', 'supermarket', "library"
+    "restaurant"
 ]
 function fetchPlacesFromGoogle(geoPoint) {
     let places = [];
@@ -200,18 +203,18 @@ function calculateAreasCoveredByRadius(geoPoint, radius) {
 
 function geoPointToAreaCollectionName(geoPoint) {
     // Naming schema:
-    // {floorLat}to{ceilLat},{floorLng}to{ceilLng}
+    // {floorLat}to{ceilLat}and{floorLng}to{ceilLng}
     // Note that Latitude & Longitude 1 deg ≈ 111 km
     // use "to" to avoid the negative sign effect during parsing
-    return "{0}to{1},{2}to{3}".format(Math.floor(geoPoint.lat), Math.ceil(geoPoint.lat), Math.floor(geoPoint.lng), Math.ceil(geoPoint.lng));
+    return "{0}to{1}and{2}to{3}".format(Math.floor(geoPoint.lat), Math.ceil(geoPoint.lat),Math.floor(geoPoint.lng), Math.ceil(geoPoint.lng));
 }
 
 function areaCollectionNameToCenterGeoPoint(areaCollectionName) {
     // Naming schema:
-    // {floorLat}to{ceilLat},{floorLng}to{ceilLng}
+    // {floorLat}to{ceilLat}and{floorLng}to{ceilLng}
     // convert an area collection name to the center geoPoint of this area
-    let latPair = areaCollectionName.split(",")[0].split("to").map(num => parseFloat(num));
-    let lngPair = areaCollectionName.split(",")[1].split("to").map(num => parseFloat(num));
+    let latPair = areaCollectionName.split("and")[0].split("to").map(num => parseFloat(num));
+    let lngPair = areaCollectionName.split("and")[1].split("to").map(num => parseFloat(num));
     return { lat: (latPair[0] + latPair[1]) / 2, lng: (lngPair[0] + lngPair[1]) / 2 };
 }
 
