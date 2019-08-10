@@ -12,7 +12,7 @@ function App() {
     <Router history={history}>
       <Layout>
         <Header>
-          <h1 className="title">Plan Me</h1>
+          <Link to="/"><h1 className="title">Plan Me</h1></Link>
         </Header>
       </Layout>
       <div>
@@ -65,9 +65,6 @@ import Feedback from './pages/feedback/Feedback';
 function FeedbackPage() {
   return (
     <Layout>
-      <Header>
-        <Link to="/">Back to Home Page</Link>
-      </Header>
       <Content>
         <Feedback />
       </Content>
