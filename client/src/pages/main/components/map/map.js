@@ -1,7 +1,6 @@
 import React from 'react';
 import { Map, GoogleApiWrapper, Marker, Polygon } from 'google-maps-react';
-import { Spin } from 'antd';
-import { Select } from 'antd';
+import { Select, Spin } from 'antd';
 import './map.css';
 
 class RadiusMap extends React.Component {
@@ -30,6 +29,8 @@ class RadiusMap extends React.Component {
     const { loading, userLocation, radius } = this.state;
     const { google } = this.props;
 
+    localStorage.setItem('radius', radius)
+
     if (loading) {
       return(
         <div className='loading'>
@@ -37,6 +38,7 @@ class RadiusMap extends React.Component {
         </div>
       );
     }
+
     console.log(userLocation)
     let circleCoords = [];
     var angle = 0;
@@ -46,10 +48,12 @@ class RadiusMap extends React.Component {
       );
       angle += 0.1;
     }
-    let distance = [1,2,3,5,8];
+
+    let distance = [1,2,3,5,8,13,21];
     let options = distance.map((radius) => {
-        return <Option onClick={() => this.setState({ radius: radius })} key={radius.toString()}>{radius} {(radius > 1) ?  "kilometers" : "kilometer"}</Option>
+        return <Option onClick={() => { localStorage.setItem('radius', radius); this.setState({ radius: radius }) } }key={radius.toString()}>{radius} {(radius > 1) ?  "kilometers" : "kilometer"}</Option>
     });
+
     return(
       <div>
         <h4>I'm willing to travel

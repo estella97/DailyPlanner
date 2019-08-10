@@ -28,7 +28,6 @@ Meteor.startup(() => {
 Meteor.methods({
     plan: (time, commute, feelings, geoPoint, radius) => {
         try {
-            radius = 10000; // in meters // TODO: I think 100 KM is probably the max allowed radius, which is REALLY far already...
             return plan(time, commute, feelings, geoPoint, radius);
         } catch (e) {
             console.error(e);

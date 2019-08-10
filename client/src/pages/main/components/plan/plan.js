@@ -14,8 +14,9 @@ class Plan extends React.Component {
         console.log(`More or less ${crd.accuracy} meters.`);
         var userLocation = { lat: crd.latitude, lng: crd.longitude }
 
+        // send radius to the backend in meters, not kilometers
         Meteor.call("plan", this.props.time, this.props.commute, this.props.feelings,
-        userLocation, 100, (err, res) => {
+        userLocation, localStorage.getItem('radius') * 1000, (err, res) => {
             if (err) {
                 console.log(err)
             } else {
