@@ -261,9 +261,9 @@ const avgCommuteSpeed = {
 //"restaurant", "park", "bar", "beauty_salon", "book_store", "cafe", 'spa', 'store', 'supermarket', "library"
 const feelingsDictionary = {
     "Happy": [
-        // "bar",
-        // "restaurant",
-        // "bar",
+        "bar",
+        "restaurant",
+        "bar",
         "book_store"
     ],
     "Sad": [
