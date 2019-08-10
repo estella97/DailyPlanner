@@ -1,16 +1,16 @@
 import React from 'react';
-import { Map, GoogleApiWrapper } from 'google-maps-react';
+import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 import { Spin } from 'antd';
 import './map.css';
 
 class RadiusMap extends React.Component {
-  // TODO Style the map and set current location
+  // TODO Style the map
   state = { userLocation: { lat: 32, lng: 32 }, loading: true };
   constructor(props) {
     super(props);
     this.state = { userLocation: { lat: 32, lng: 32 } };
   }
-  componentDidMount(props) {
+  componentDidMount() {
     navigator.geolocation.getCurrentPosition(
       position => {
         const { latitude, longitude } = position.coords;
@@ -40,27 +40,14 @@ class RadiusMap extends React.Component {
 
     return(
       <div style={{position: 'relative', height: '400px', width: '100%', alignContent: 'center'}}>
-        <Map google={google} center={userLocation} zoom={10}  style={{position: 'fixed', height: '100%', width: '100%'}}/>
+        <Map google={google} center={ userLocation } zoom={10}  style={{position: 'fixed', height: '100%', width: '100%'}}>
+          <Marker
+              position={ userLocation } />
+          </Map>
       </div>
     );
   }
 }
-
-// export default GoogleApiWrapper({
-//   apiKey: "-----------"
-// })(MapContainer);
-//     render() {
-//         return (
-//             <div style={{ height: '100vh', width: '100%' }}>
-//                 <Map
-//                     google={this.props.google}
-//                     zoom={8}
-//                     initialCenter={{ lat: 47.444, lng: -122.176}}
-//                 />
-//             </div>
-//         );
-//       }
-// }
 
 export default GoogleApiWrapper({
     apiKey: 'AIzaSyBou9WAraqZGu5xbYGcp1H01owc9QxhSqw'
