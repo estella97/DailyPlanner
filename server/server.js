@@ -90,7 +90,7 @@ function plan(time, commute, feelings, geoPoint, radius) {
         time -= (estimatedCommuteTime + timeSpendInEachPlace);
         geoPoint = place.geometry.location;
     }
-    console.log("Received a plan request with paramemters: {0} hours, using {1}, feeling {2}, at {3}, within in {4} kms".format(
+    console.log("Received a plan request with paramemters: {0} hours, using {1}, feeling {2}, at {3}, within in {4} meters".format(
         time, commute, feelings, JSON.stringify(geoPoint), radius
     ));
     console.log("Calculated Results: " + JSON.stringify(plan));
@@ -252,25 +252,21 @@ const avgCommuteSpeed = {
     "car": 35000
 };
 
-// 'Happy'
-// 'Sad'
-// 'Hungry'
-// 'Active'
-// 'Lazy'
-// 'Excited'
-// 'Friendly'
-// 'Quiet'
-//"restaurant", "park", "bar", "beauty_salon", "book_store", "cafe", 'spa', 'store', 'supermarket', "library"
+// "aquarium", "art_gallery", "bar", "beauty_salon", "book_store", "cafe",
+// "clothing_store", 'electronics_store', 'gym', 'hair_care', 'hardware_store', 'home_goods_store',
+// 'jewelry_store', 'library', 'meal_takeaway', 'movie_theater', 'museum', 'night_club', 'park',
+// 'pet_store', 'pharmacy', 'restaurant', 'shoe_store', 'shopping_mall', 'spa', 'store', 'supermarket', 'zoo'
 const feelingsDictionary = {
     "Happy": [
+        "aquarium",
         "bar",
         "restaurant",
-        "bar",
-        "book_store"
+        "movie_theater"
     ],
     "Sad": [
-        "park",
-        "cafe"
+        "bar",
+        "pharmacy",
+        "pet_store"
     ],
     "Hungry": [
         "restaurant",
@@ -278,22 +274,39 @@ const feelingsDictionary = {
         "supermarket"
     ],
     "Active": [
-        "park"
+        "aquarium",
+        "park",
+        "clothing_store",
+        "gym",
+        "shopping_mall",
+        "zoo"
     ],
     "Lazy": [
         "restaurant",
-        "spa"
+        "spa",
+        "beauty_salon",
+        "hair_care",
+        "meal_takeaway"
     ],
     "Excited": [
-        "bar"
+        "bar",
+        "night_club",
+        "clothing_store",
+        "electronics_store",
+        "movie_theater"
     ],
     "Friendly": [
+        "art_gallery",
+        "book_store",
         "bar",
         "park"
     ],
     "Quiet": [
+        "art_gallery",
         "book_store",
-        "library"
+        "library",
+        "cafe",
+        "beauty_salon"
     ]
 };
 
