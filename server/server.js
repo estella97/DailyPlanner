@@ -56,12 +56,14 @@ function plan(time, commute, feelings, geoPoint, radius) {
     }
     places = reduceDuplicatePlaces(places);
     console.log("Found " + places.length + " possible places");
+    let allPossibility = places.length;
     places = places.filter(place =>
         withinRadius(place, geoPoint, radius) &&
         isOpening(place) &&
         matchFeelings(place, feelings)
     );
-    console.log("After filtering, found " + places.length + " possible places")
+    console.log("After filtering, found " + places.length + " possible places");
+    let afterLocationFilter = places.length;
 
     let plan = [];
     while (time > 0 && places.length > 0) {
@@ -90,10 +92,19 @@ function plan(time, commute, feelings, geoPoint, radius) {
         time -= (estimatedCommuteTime + timeSpendInEachPlace);
         geoPoint = place.geometry.location;
     }
+    let afterPlanning = plan.length / 2;
     console.log("Received a plan request with paramemters: {0} hours, using {1}, feeling {2}, at {3}, within in {4} meters".format(
         time, commute, feelings, JSON.stringify(geoPoint), radius
     ));
-    console.log("Calculated Results: " + JSON.stringify(plan));
+    if (plan.length === 0) {
+        let issue = allPossibility - afterLocationFilter > afterLocationFilter - afterPlanning ?
+            "We didn't find many places near you 😔 please specify a wider range" :
+            "There's no enough time to visit the suggested places 😐 please come back when you have more free time~"
+        console.log(issue);
+        plan.push(issue);
+    } else {
+        console.log("Calculated Results: " + JSON.stringify(plan));
+    }
     return plan;
 }
 
@@ -175,10 +186,6 @@ const GOOGLE_PLACES_TYPES = ["aquarium", "art_gallery", "bar", "beauty_salon", "
     'jewelry_store', 'library', 'meal_takeaway', 'movie_theater', 'museum', 'night_club', 'park',
     'pet_store', 'pharmacy', 'restaurant', 'shoe_store', 'shopping_mall', 'spa', 'store', 'supermarket', 'zoo'];
 
-// TODO: enable all types, probably also needs to reduce request rate
-// const GOOGLE_PLACES_TYPES = [
-//     "restaurant", "park", "bar", "beauty_salon", "book_store", "cafe", 'spa', 'store', 'supermarket', "library"
-// ]
 function fetchPlacesFromGoogle(geoPoint) {
     let places = [];
     for (let type of GOOGLE_PLACES_TYPES) {
@@ -208,7 +215,7 @@ function geoPointToAreaCollectionName(geoPoint) {
     // {floorLat}to{ceilLat}and{floorLng}to{ceilLng}
     // Note that Latitude & Longitude 1 deg ≈ 111 km
     // use "to" to avoid the negative sign effect during parsing
-    return "{0}to{1}and{2}to{3}".format(Math.floor(geoPoint.lat), Math.ceil(geoPoint.lat),Math.floor(geoPoint.lng), Math.ceil(geoPoint.lng));
+    return "{0}to{1}and{2}to{3}".format(Math.floor(geoPoint.lat), Math.ceil(geoPoint.lat), Math.floor(geoPoint.lng), Math.ceil(geoPoint.lng));
 }
 
 function areaCollectionNameToCenterGeoPoint(areaCollectionName) {

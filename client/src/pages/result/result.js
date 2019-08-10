@@ -48,20 +48,37 @@ class Result extends React.Component {
         )
     }
 
+    renderIssue = (issue) => {
+        return (
+            <div align="middle">
+                <Card size="default" hoverable="true" style={{ width: 400 }}
+                    cover={<img alt="example" src={"/image/not-found.jpg"} />}>
+                    <h4>{issue}</h4>
+                </Card>
+            </div>
+        )
+    }
+
     render() {
         let fetchedResults = JSON.parse(localStorage.getItem("results"));
+        // TODO
         console.log(fetchedResults);
-        let results = fetchedResults.map((result, index) => {
-            if (index % 2 === 0) {
-                return this.renderCommute(result, index);
-            } else {
-                return this.renderLocation(result, index);
-            }
-
-        })
+        let issue = "";
+        let results = [];
+        if (fetchedResults.length === 1) {
+            issue = fetchedResults[0];
+        } else {
+            results = fetchedResults.map((result, index) => {
+                if (index % 2 === 0) {
+                    return this.renderCommute(result, index);
+                } else {
+                    return this.renderLocation(result, index);
+                }
+            });
+        }
         return (
             <div className="center">
-                {results}
+                {results.length !== 0? results : this.renderIssue(issue)}
             </div>
         )
     }
