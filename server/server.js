@@ -77,16 +77,18 @@ function plan(time, commute, feelings, geoPoint, radius) {
         // randomly select one nearby place from placesCanVisitWithinTime
         let maxRandomIndex = placesCanVisitWithinTime.length > 5 ? 5 : placesCanVisitWithinTime.length;
         let place = placesCanVisitWithinTime[Math.floor(Math.random() * maxRandomIndex)];
+        place["spendTime"] = timeSpendInEachPlace;
+        let estimatedCommuteTime = estimateCommuteTime(place, geoPoint, commute);
         let commuteInfo = {
             commuteFrom: geoPoint,
             commuteType: commute,
-            commuteTime: estimateCommuteTime(place, geoPoint, commute)
+            commuteTime: convertHrToMin(estimatedCommuteTime)
         };
         plan.push(commuteInfo);
         plan.push(place);
         // update for the next iteration
         remove(places, place);
-        time -= (commuteInfo.commuteTime + timeSpendInEachPlace);
+        time -= (estimatedCommuteTime + timeSpendInEachPlace);
         geoPoint = place.geometry.location;
     }
     console.log("Received a plan request with paramemters: {0} hours, using {1}, feeling {2}, at {3}, within in {4} kms".format(
@@ -130,6 +132,10 @@ function estimateCommuteTime(place, geoPoint, commute) {
     // estimateLongestPath = perimeter of the isosceles right angle - distance
     let estimateLongestPath = Math.sqrt(2) * distance;
     return estimateLongestPath / avgCommuteSpeed[commute];
+}
+
+function convertHrToMin(hr) {
+    return Math.floor(hr * 60);
 }
 
 function needsUpdate(areaCollectionName) {
