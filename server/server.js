@@ -28,8 +28,6 @@ Meteor.startup(() => {
 Meteor.methods({
     plan: (time, commute, feelings, geoPoint, radius) => {
         try {
-            
-            geoPoint = { lat: 49.263395499999994, lng: -123.25604360000001 };
             radius = 10000; // in meters // TODO: I think 100 KM is probably the max allowed radius, which is REALLY far already...
             return plan(time, commute, feelings, geoPoint, radius);
         } catch (e) {
@@ -191,6 +189,7 @@ function fetchPlacesFromGoogle(geoPoint) {
 }
 
 function calculateAreasCoveredByRadius(geoPoint, radius) {
+    console.log(geoPoint)
     // find the areas that covered by the radius, invalid geopoints will be ignored when fetching from Google
     // the offset 1 for the surrounding ares is corresponding to the area collection naming schema
     let areas = [geoPoint,
@@ -262,9 +261,9 @@ const avgCommuteSpeed = {
 //"restaurant", "park", "bar", "beauty_salon", "book_store", "cafe", 'spa', 'store', 'supermarket', "library"
 const feelingsDictionary = {
     "Happy": [
-        "bar",
-        "restaurant",
-        "bar",
+        // "bar",
+        // "restaurant",
+        // "bar",
         "book_store"
     ],
     "Sad": [
