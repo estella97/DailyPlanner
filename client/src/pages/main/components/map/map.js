@@ -42,11 +42,11 @@ class RadiusMap extends React.Component {
     console.log(userLocation)
     let circleCoords = [];
     var angle = 0;
-    while (angle < 360) {
+    while (angle < 358) {
       circleCoords.push(
         {lat: userLocation.lat + radius*(Math.PI/180)*Math.cos(angle), lng: userLocation.lng + radius*(Math.PI/180)*Math.sin(angle)}
       );
-      angle += 0.1;
+      angle += 0.01;
     }
 
     let distance = [1,2,3,5,8,13,21];
