@@ -1,7 +1,7 @@
 # DailyPlanner
 
 ## Project Documentation 
-[Click here](Reference/Daily Planner.pdf)
+![Click here](Reference/DailyPlanner.pdf)
 
 
 ## Project Description:
