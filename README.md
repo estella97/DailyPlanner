@@ -1,5 +1,9 @@
 # DailyPlanner
 
+## Project Documentation 
+[Click here](Reference/Daily Planner.pdf)
+
+
 ## Project Description:
 1. Who is it for?
    - Anyone who is indecisive about what to do
