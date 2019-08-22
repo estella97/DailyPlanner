@@ -21,7 +21,7 @@ Users will not have direct access to this data; rather, we will store this data 
    - We could add the ability for a user to login and see their past ‘plans’
    - We could remove the time constraints added by the user and instead of making a schedule just return a list of recommended things to do based on their feelings.
 
-## Project task requirements:
+## Project Task Requirements:
 - 3-5 minimal requirements (will definitely complete)
   1. A frontend where users can enter their feelings
   2. Association of these feelings to tags that will be used to lookup places using the Google Places API, and subsequent storage of this data in our db
@@ -47,6 +47,13 @@ Users will not have direct access to this data; rather, we will store this data 
     2. Storage of the data returned from these requests in a database
 
 
-## ProposalDraft:
+## Mock-ups:
 
 ![Proposal Draft](Reference/ProposalDraft.jpg?raw=true "ProposalDraft")
+
+## Issues We Solved:
+- Issue: Millions of Google API calls if  scaling up, which could cause performance issue and huge overhead.
+- Solution we came up: We minimized our Google API calls by storing data fatching from API in our database.
+
+## Additional Learning:
+- Besides applying technology (HTML+CSS+JS, React+Redux, NodeJS, METER, MongoDB and Heroku) we learned in this course to the project, we also learned how to use Ant Design for our frontend UI and to intergrate Google Maps API with React.
