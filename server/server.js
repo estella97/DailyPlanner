@@ -181,10 +181,8 @@ function updateAreaCollection(areaCollectionName) {
 
 // TODO: might need to disable this key as it's on the internet
 const GOOGLE_KEY = "AIzaSyBou9WAraqZGu5xbYGcp1H01owc9QxhSqw";
-const GOOGLE_PLACES_TYPES = ["aquarium", "art_gallery", "bar", "beauty_salon", "book_store", "cafe",
-    "clothing_store", 'electronics_store', 'gym', 'hair_care', 'hardware_store', 'home_goods_store',
-    'jewelry_store', 'library', 'meal_takeaway', 'movie_theater', 'museum', 'night_club', 'park',
-    'pet_store', 'pharmacy', 'restaurant', 'shoe_store', 'shopping_mall', 'spa', 'store', 'supermarket', 'zoo'];
+const GOOGLE_PLACES_TYPES = ['library', "art_gallery", "bar", "book_store", "cafe", 'park',
+     'restaurant', 'shopping_mall', 'spa', 'store', 'supermarket', 'zoo'];
 
 function fetchPlacesFromGoogle(geoPoint) {
     let places = [];
